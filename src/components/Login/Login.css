@@ -1,7 +1,9 @@
 body{
     background-color: #541554;
 }
-
+button{
+    cursor: pointer;
+}
 .navbar{
     padding:12px;
     display: flex;
