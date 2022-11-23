@@ -8,6 +8,10 @@
     background-color: #232529;
 }
 
+.user-img{
+    margin-right: 10px;
+}
+
 .user-img:hover{
     cursor: pointer;
 }

@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 function Header() {
+    const currentUser=auth.currentUser
     const [query,setQuery]=useState('')
     const handleQuery=(e)=>{
         setQuery(e.target.value)
@@ -19,7 +20,7 @@ function Header() {
     }
   return (
     <div className='Header'>
-        <Avatar src={''} alt={'user profile picture'} className='user-img'/>
+        <Avatar src={`${currentUser.photoURL}`} alt={'user profile picture'}/>
         <div className='search-nav'>
             <AccessTimeIcon style={{color:'white',marginRight:'50px'}}/>
             <div className='search-input'>

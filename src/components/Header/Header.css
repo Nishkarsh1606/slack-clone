@@ -6,11 +6,6 @@
     align-items: center;
 }
 
-.user-img{
-    margin-right: 10px;
-    border-radius: 10px !important;
-}
-
 .search-nav{
     min-width: 30%;
     display: flex;

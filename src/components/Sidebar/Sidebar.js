@@ -14,17 +14,24 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AddIcon from '@mui/icons-material/Add';
 import TagIcon from '@mui/icons-material/Tag';
+import { auth } from '../../firebase';
 
 function Sidebar() {
+    const currentUser=auth.currentUser
+    const getFirstName=()=>{
+        const fullName=currentUser.displayName.split(' ')
+        const firstName=fullName[0]
+        return firstName
+    }
     return (
         <div className='Sidebar'>
             {/* Slack HQ Name */}
             <div className='workspace-info'>
                 <div className='slack-name'>
-                    <p className='slack-hq'>Nishkarsh' HQ</p>
+                    <p className='slack-hq'>{`${getFirstName()}'s HQ`}</p>
                     <div>
                     <span className='circle-icon'><CircleIcon className='active-status'/></span>
-                    <span className='slack-hq'>Nishkarsh Srivastava</span>
+                    <span className='slack-hq'>{currentUser.displayName}</span>
                     </div>
                 </div>
                 <CreateIcon className='create-message'/>
