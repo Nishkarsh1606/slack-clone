@@ -1,3 +1,6 @@
+body{
+    overflow-y: hidden;
+}
 .app_body{
     flex:0.84;
     display: flex;
