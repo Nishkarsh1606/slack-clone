@@ -1,0 +1,64 @@
+body{
+    background-color: #541554;
+}
+
+.navbar{
+    padding:12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #541554;
+    margin-bottom: 4rem;
+}
+
+.company-info>img{
+    width: 50px;
+}
+
+.signup>button{
+    width: 100px;
+    height: 40px;
+    background-color:white;
+    color: #3F0E40;
+    border:1px solid white;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.hero{
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.hero-text{
+    padding: 12px;
+}
+.hero-text>h1{
+    font-size: 3.5rem;
+    color: white;
+}
+.highlight{
+    color:#ecb22e;
+}
+
+.hero-text>h2{
+    color: white;
+    line-height: 1.4;
+}
+
+h2>a{
+    color: white;
+}
+
+.hero-text>button{
+    margin-top: 1rem;
+    padding: 1rem;
+    border: none;
+    width: 60%;
+    border-radius: 12px;
+    font-weight: bolder;
+    font-size: 1.2rem;
+}

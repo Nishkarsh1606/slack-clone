@@ -1,0 +1,48 @@
+.Feed{
+    flex: 0.84;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    margin-left: 20px;
+}
+
+.posts{
+    height: 85%;
+    width: 90%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.post-message{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    width: 90%;
+    height: 2.5rem;
+}
+.post-message-form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.post-message-form>input[type=text]{
+    background-color: #232529;
+    border:none;
+    height: 90%;
+    width: 100%;
+    color: whitesmoke;
+    font-size: 1rem;
+    padding: 6px;
+    outline: none;
+    border-radius: 12px;
+}
+
+.post-message-form>input[type=text]::placeholder{
+    color: grey;
+}
+
+.send-icon{
+    margin-left: -2rem;
+}

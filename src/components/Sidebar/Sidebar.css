@@ -1,0 +1,61 @@
+.Sidebar{
+    flex:0.16;
+    height:93vh;
+    box-sizing: border-box;
+    background-color: #3F0E40;
+    color: white;
+}
+
+.workspace-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #422D4A;
+    border-bottom: 1px solid #422D4A;
+    padding: 6px;
+}
+
+.slack-name{
+    line-height: 0.6;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.slack-name>div{
+    margin-top: -3px;
+}
+
+.slack-hq:first-child{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.slack-hq:nth-child(2){
+ font-size: 0.8rem;
+ margin-left: 4px;
+ color: lightgray;
+}
+
+.active-status{
+    color: green;
+    font-size: 0.7rem !important;
+}
+.circle-icon:hover{
+    cursor: pointer;
+}
+
+.create-message{
+    background-color: whitesmoke;
+    border-radius: 25px;
+    padding: 5px;
+    color: grey;
+    cursor: pointer;
+}
+
+.sidebar-features{
+    display: flex;
+    flex-direction: column;
+    font-size: small;
+    padding: 10px;
+    border-bottom: 1px solid #422D4A;
+}

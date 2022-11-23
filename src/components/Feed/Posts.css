@@ -1,0 +1,26 @@
+.Posts{
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 2px;
+}
+.Posts:hover{
+    background-color: #232529;
+}
+
+.user-img:hover{
+    cursor: pointer;
+}
+
+.user{
+    line-height: 0.4;
+}
+
+.user-info:nth-child(1){
+    font-weight: bolder;
+    font-size: 1rem;
+}
+
+.user-info:nth-child(2){
+    font-weight: 0.6rem;
+}

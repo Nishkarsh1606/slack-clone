@@ -1,0 +1,16 @@
+.Features{
+    display: flex;
+    align-items: center;
+    line-height: 0.2;
+    cursor: pointer;
+    padding:4px;
+}
+
+.Features:hover{
+    background: #422D4A; 
+    border-radius: 10px;
+}
+
+.Features>p{
+    margin-left:1rem;
+}

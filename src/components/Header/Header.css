@@ -1,0 +1,45 @@
+.Header{
+    background-color: #3F0E40;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-img{
+    margin-right: 10px;
+    border-radius: 10px !important;
+}
+
+.search-nav{
+    min-width: 30%;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.search-input{
+    display: flex;
+}
+
+.search-input>input[type=text]{
+    width: 40rem;
+    text-align: center;
+    outline: none;
+    border:0.3px solid lightgray;
+    color: white;
+    border-radius: 5px;
+    background-color: #422D4A;
+}
+
+.search-input>input::placeholder{
+    color: whitesmoke;
+}
+
+.search-icon{
+    color: #422D4A;
+    margin-right: -42px;
+}
+
+.preferences{
+    display: flex;
+}
