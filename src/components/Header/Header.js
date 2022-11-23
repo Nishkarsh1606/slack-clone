@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
+import {signOut} from 'firebase/auth'
+import {auth} from '../../firebase'
 import './Header.css'
 import { Avatar } from '@mui/material'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SearchIcon from '@mui/icons-material/Search';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function Header() {
     const [query,setQuery]=useState('')
     const handleQuery=(e)=>{
         setQuery(e.target.value)
+    }
+    const handleSignOut=()=>{
+      setTimeout(()=>{
+        signOut(auth)
+      },500)
     }
   return (
     <div className='Header'>
@@ -20,7 +27,9 @@ function Header() {
             <input type="text" placeholder={`Search`} value={query} onChange={handleQuery}/>
             </div>
         </div>
-        <HelpOutlineIcon style={{color:'white'}}/>
+        <div>
+        <LogoutIcon onClick={handleSignOut} className='logout-icon'/>
+        </div>
     </div>
   )
 }
