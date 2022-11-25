@@ -1,11 +1,23 @@
 .Posts{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-radius: 10px;
     padding: 2px;
 }
 .Posts:hover{
     background-color: #232529;
+
+}
+
+.Posts:hover .delete-icon{
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.main-container{
+    display: flex;
+    align-items: center;
 }
 
 .user-img{
@@ -28,3 +40,9 @@
 .user-info:nth-child(2){
     font-weight: 0.6rem;
 }
+
+.delete-icon{
+    align-self: flex-start !important;
+    color: #232529;
+}
+
