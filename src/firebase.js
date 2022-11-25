@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, getFirestore } from "firebase/firestore"; 
+import { collection, getFirestore, orderBy, query } from "firebase/firestore"; 
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 
@@ -22,7 +22,8 @@ const provider= new GoogleAuthProvider()
 
 //setup firestore
 const db=getFirestore(app)
-const messagesRef=collection(db,'general')
+const collectionRef=collection(db,'general')
+const collectionOrderedByTime=query(collectionRef,orderBy('createAt','desc'))
 
-export {auth,provider,messagesRef}
+export {auth,provider,collectionRef,collectionOrderedByTime}
 export default app
