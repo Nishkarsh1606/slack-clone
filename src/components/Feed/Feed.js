@@ -35,6 +35,7 @@ function Feed() {
       userEmail:currentUser.email,
       userProfile:currentUser.photoURL,
       userMessage:message,
+      uid: currentUser.uid,
       createAt:serverTimestamp()
     })
   }
@@ -42,10 +43,11 @@ function Feed() {
     <div className='Feed'>
       <div className='posts'>
         {
-          posts.map(({id,data:{displayName,userProfile,userMessage}})=>{
+          posts.map(({id,data:{displayName,userProfile,userMessage,uid}})=>{
             return <Posts
             key={id}
             messageID={id}
+            userID={uid}
             userName={displayName}
             userMessage={userMessage}
             userProfile={userProfile}
@@ -57,7 +59,7 @@ function Feed() {
         <form onSubmit={handleMessage} className={'post-message-form'}>
           <input type="text" placeholder='Send Message' value={message} onChange={(e)=>setMessage(e.target.value)}/>
           <button type="submit" style={{display:"none"}}></button>
-          <SendIcon className='send-icon'/>
+          <SendIcon className='send-icon' onClick={handleMessage}/>
         </form>
       </div>
     </div>
