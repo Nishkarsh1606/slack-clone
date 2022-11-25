@@ -9,7 +9,7 @@ function Posts({userName,userMessage,userProfile,messageID}) {
     return (
         <div className='Posts' id={messageID}>
             <div className='main-container'>
-                <Avatar src={`${userProfile}`} sx={{ bgcolor: purple[900] }} className='user-img' />
+                <Avatar src={`${userProfile}`} sx={{ bgcolor: purple[900] }} className='user-img' alt={userName[0]}/>
                 <div className='user'>
                     <p className='user-info'>{userName}</p>
                     <p className='user-info'>{userMessage}</p>
