@@ -9,6 +9,12 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from './firebase'
 import { login } from './features/userSlice';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   const [user] = useAuthState(auth)
@@ -34,6 +40,18 @@ function App() {
         </div>
       </div>)
   );
+  // return(
+  //   user===null?<Login/>:(
+  //     <Router>
+  //     <>
+  //       <Switch>
+  //         <Route path="/" element={<General/>}/>
+  //         <Route path="findr" element={<Findr/>}/>
+  //       </Switch>
+  //       </>
+  //   </Router>
+  //   )
+  // )
 }
 
 export default App;
