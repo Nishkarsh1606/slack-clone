@@ -53,7 +53,7 @@ function Sidebar() {
             </div>
             {/* Channel List */}
             <div className='sidebar-features'>
-            <Features Icon={AddIcon} featureName={'Add Channel'}/>
+            <div><Features Icon={AddIcon} featureName={'Add Channel'} /></div>
             <Features Icon={TagIcon} featureName={'General'}/>
             </div>
         </div>
