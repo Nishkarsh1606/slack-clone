@@ -1,4 +1,20 @@
-.Feed{
+::-webkit-scrollbar {
+    width: 4px;
+    padding: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(42, 44, 46);
+    border-radius: 10px;
+    max-height: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #534c4c;
+    cursor: pointer;
+}
+
+.Feed {
     flex: 0.84;
     height: 100%;
     display: flex;
@@ -7,29 +23,32 @@
     margin-left: 20px;
 }
 
-.posts{
+.posts {
     height: 85%;
     width: 90%;
     display: flex;
     flex-direction: column-reverse;
+    overflow-y: scroll;
 }
 
-.post-message{
+.post-message {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
     width: 90%;
     height: 2.5rem;
 }
-.post-message-form{
+
+.post-message-form {
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
 }
-.post-message-form>input[type=text]{
+
+.post-message-form>input[type=text] {
     background-color: #232529;
-    border:none;
+    border: none;
     height: 90%;
     width: 100%;
     color: whitesmoke;
@@ -39,10 +58,10 @@
     border-radius: 12px;
 }
 
-.post-message-form>input[type=text]::placeholder{
+.post-message-form>input[type=text]::placeholder {
     color: grey;
 }
 
-.send-icon{
+.send-icon {
     margin-left: -2rem;
 }
