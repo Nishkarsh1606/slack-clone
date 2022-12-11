@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 Slack final build.png
 index-archive.html
+firebase.js
+src/firebase.js
+.firebase
+test.js
