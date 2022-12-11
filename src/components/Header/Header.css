@@ -1,6 +1,8 @@
 .Header{
+    height: 5vh;
+    max-height: 5vh;
     background-color: #3F0E40;
-    padding: 8px;
+    padding: 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

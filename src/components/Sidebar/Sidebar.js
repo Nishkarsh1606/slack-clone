@@ -1,6 +1,8 @@
-import React from 'react'
-import Features from './Features';
+import React, { useEffect, useState } from 'react'
+import { db } from '../../firebase';
+import { collection, addDoc, setDoc, doc, onSnapshot, arrayRemove } from 'firebase/firestore';
 import './Sidebar.css'
+import Features from './Features';
 import CreateIcon from '@mui/icons-material/Create';
 import CircleIcon from '@mui/icons-material/Circle';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -17,12 +19,36 @@ import TagIcon from '@mui/icons-material/Tag';
 import { auth } from '../../firebase';
 
 function Sidebar() {
-    const currentUser=auth.currentUser
-    const getFirstName=()=>{
-        const fullName=currentUser.displayName.split(' ')
-        const firstName=fullName[0]
+    const [channels, setChannels] = useState([])
+    const currentUser = auth.currentUser
+    const getFirstName = () => {
+        const fullName = currentUser.displayName.split(' ')
+        const firstName = fullName[0]
         return firstName
     }
+    const createChannel = () => {
+        const promptValue = prompt('Enter Channel Name')
+        const newChannelName = promptValue.toLocaleLowerCase().replace(/ /g, '-')
+        addDoc(collection(db, 'Slack'), {
+            channelName: newChannelName
+        }).then(() => { alert('successfully added new channel!') })
+            .then(() => {
+                addDoc(collection(db, `Slack/${newChannelName}/messages`), {
+                    try: 'Test message'
+                })
+            })
+    }
+    useEffect(() => {
+        onSnapshot((collection(db, 'Slack')), (snapshot) => {
+            setChannels(snapshot.docs.map((doc) => (
+                {
+                    data: doc.data(),
+                    id: doc.id
+                }
+            )))
+        })
+        console.log(channels);
+    }, [])
     return (
         <div className='Sidebar'>
             {/* Slack HQ Name */}
@@ -30,31 +56,38 @@ function Sidebar() {
                 <div className='slack-name'>
                     <p className='slack-hq'>{`${getFirstName()}'s HQ`}</p>
                     <div>
-                    <span className='circle-icon'><CircleIcon className='active-status'/></span>
-                    <span className='slack-hq'>{currentUser.displayName}</span>
+                        <span className='circle-icon'><CircleIcon className='active-status' /></span>
+                        <span className='slack-hq'>{currentUser.displayName}</span>
                     </div>
                 </div>
-                <CreateIcon className='create-message'/>
+                <CreateIcon className='create-message' />
             </div>
             {/* Features */}
             <div className='sidebar-features'>
-                <Features Icon={ChatIcon} featureName={'Threads'}/>
-                <Features Icon={InboxIcon} featureName={'Messages & Reactions'}/>
-                <Features Icon={DraftsIcon} featureName={'Saved Items'}/>
-                <Features Icon={BookmarkIcon} featureName={'Channel Browser'}/>
-                <Features Icon={PeopleIcon} featureName={'People & user group'}/>
-                <Features Icon={AppsIcon} featureName={'App'}/>
-                <Features Icon={FileCopyIcon} featureName={'File Browser'}/>
-                <Features Icon={KeyboardArrowUpIcon} featureName={'Show Less'}/>
+                <Features Icon={ChatIcon} featureName={'Threads'} />
+                <Features Icon={InboxIcon} featureName={'Messages & Reactions'} />
+                <Features Icon={DraftsIcon} featureName={'Saved Items'} />
+                <Features Icon={BookmarkIcon} featureName={'Channel Browser'} />
+                <Features Icon={PeopleIcon} featureName={'People & user group'} />
+                <Features Icon={AppsIcon} featureName={'App'} />
+                <Features Icon={FileCopyIcon} featureName={'File Browser'} />
+                <Features Icon={KeyboardArrowUpIcon} featureName={'Show Less'} />
             </div>
             {/* Channels Down*/}
             <div className='sidebar-features'>
-            <Features Icon={KeyboardArrowDownIcon} featureName={'Channel'}/>
+                <Features Icon={KeyboardArrowDownIcon} featureName={'Channels'} />
             </div>
             {/* Channel List */}
             <div className='sidebar-features'>
-            <div><Features Icon={AddIcon} featureName={'Add Channel'} /></div>
-            <Features Icon={TagIcon} featureName={'General'}/>
+                <div onClick={createChannel}><Features Icon={AddIcon} featureName={'Add Channel'} /></div>
+                <div className="channel-list">
+                    <Features Icon={TagIcon} featureName={'Slack'} />
+                    {
+                        channels.map(({ id, data: { channelName } }) => (
+                            <Features Icon={TagIcon} featureName={channelName} />
+                        ))
+                    }
+                </div>
             </div>
         </div>
     )

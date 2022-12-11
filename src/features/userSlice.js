@@ -12,10 +12,13 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
+    },
+    currentChannel:(state,action)=>{
+      state.channel=action.payload
     }
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, currentChannel } = userSlice.actions;
 export const selectUser = (state) => state.user.user;
 export default userSlice.reducer;

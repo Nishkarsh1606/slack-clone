@@ -58,4 +58,20 @@
     font-size: small;
     padding: 10px;
     border-bottom: 1px solid #422D4A;
+    overflow-y: hidden;
+}
+
+.channel-list{
+    height: 25vh;
+    overflow-y: scroll;
+}
+
+.channel-list::-webkit-scrollbar {
+    width: 3px;
+    max-height:2px !important;
+}
+
+.channel-list::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1rem;
 }

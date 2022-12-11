@@ -1,13 +1,14 @@
 .Posts{
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 10px;
     padding: 2px;
 }
+
 .Posts:hover{
     background-color: #232529;
-
 }
 
 .Posts:hover .delete-icon{

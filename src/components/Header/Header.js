@@ -11,8 +11,10 @@ import { purple } from '@mui/material/colors'
 function Header() {
     const currentUser=auth.currentUser
     const [query,setQuery]=useState('')
+    
     const handleQuery=(e)=>{
         setQuery(e.target.value)
+        return query
     }
     const handleSignOut=()=>{
       setTimeout(()=>{

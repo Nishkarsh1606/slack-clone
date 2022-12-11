@@ -1,6 +1,5 @@
 import React from 'react'
 import "./Features.css"
-
 function Features({featureName,Icon}) {
   return (
     <div className='Features'>
@@ -9,5 +8,4 @@ function Features({featureName,Icon}) {
     </div>
   )
 }
-
 export default Features

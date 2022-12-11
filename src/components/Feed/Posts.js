@@ -9,6 +9,8 @@ import { purple } from '@mui/material/colors'
 import { DeleteForever } from '@mui/icons-material'
 
 function Posts({userName,userMessage,userProfile,messageID,userID}) {
+    //Select collection name
+
     const currentUser=auth.currentUser
     const handleDelete=()=>{
         if(currentUser.uid===userID){

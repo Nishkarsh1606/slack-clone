@@ -1,10 +1,10 @@
 body{
-    overflow-y: hidden;
+    overflow-y:hidden;
+    margin: 0;
 }
 .app_body{
     flex:0.84;
     display: flex;
     height: 93vh;
     background-color: #1B1D21;
-    overflow-y: scroll;
 }

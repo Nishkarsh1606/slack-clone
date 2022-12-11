@@ -1,12 +1,22 @@
-import React,{useState,useEffect} from 'react'
-import { auth } from '../../firebase';
+import React,{useState,useEffect, useRef} from 'react'
 import Posts from './Posts'
 import './Feed.css'
 import SendIcon from '@mui/icons-material/Send';
-import { addDoc,onSnapshot,serverTimestamp } from 'firebase/firestore';
-import {collectionRef,collectionOrderedByTime } from '../../firebase';
+import { auth, db } from '../../firebase';
+import { addDoc,onSnapshot,serverTimestamp,collection,orderBy,query } from 'firebase/firestore';
 
 function Feed() {
+  //Select channel & collection name
+  
+  //Setup firebase functions
+  const collectionRef=collection(db,'Slack','general','messages')
+  const collectionOrderedByTime=query(collectionRef,orderBy('createAt','desc'))
+  const currentUser=auth.currentUser
+  
+  const [message,setMessage]=useState('')
+  const [posts,setPosts]=useState([])
+  const messagesEndRef=useRef(null)
+  
   useEffect(()=>{
     onSnapshot(collectionOrderedByTime,(snapshot)=>{
       setPosts(snapshot.docs.map((doc)=>(
@@ -16,20 +26,17 @@ function Feed() {
         }
       )))
     })
+  // eslint-disable-next-line
   },[])
-  const currentUser=auth.currentUser
-  const [message,setMessage]=useState('')
-  const [posts,setPosts]=useState([])
 
-  const getFirstName=()=>{
-    const fullName=currentUser.displayName.split(' ')
-    const firstName=fullName[0]
-    return firstName
-  }
+  useEffect(()=>{
+    scrollToBottom()
+  },[posts])
+
   const handleMessage=(e)=>{
     e.preventDefault()
     setMessage('')
-    addDoc(collectionRef,{
+    addDoc(collection(db,'Slack',`general`,'messages'),{
       userName:currentUser.displayName,
       displayName:getFirstName(),
       userEmail:currentUser.email,
@@ -39,9 +46,18 @@ function Feed() {
       createAt:serverTimestamp()
     })
   }
+  const scrollToBottom =()=>{
+    messagesEndRef.current?.scrollIntoView({behvaior:'smooth'})
+  }
+  const getFirstName=()=>{
+    const fullName=currentUser.displayName.split(' ')
+    const firstName=fullName[0]
+    return firstName
+  }
   return (
     <div className='Feed'>
       <div className='posts'>
+      <div ref={messagesEndRef}></div>
         {
           posts.map(({id,data:{displayName,userProfile,userMessage,uid}})=>{
             return <Posts
