@@ -11,11 +11,6 @@ function Feed() {
   //Get channel name
   const channelName=useSelector(selectChannel)
   let collectionRef=collection(db,'Slack',`${channelName}`,'messages')
-  // if(channelName){
-  //   collectionRef=collection(db,'Slack',channelName,'messages')
-  // }else{
-  //   collectionRef=collection(db,'Slack','general','messages')
-  // }
   const collectionOrderedByTime=query(collectionRef,orderBy('createAt','desc'))
   const currentUser=auth.currentUser
 
