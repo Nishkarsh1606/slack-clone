@@ -24,7 +24,10 @@ function Header() {
 
   return (
     <div className='Header'>
-        <Avatar src={`${currentUser.photoURL}`} sx={{ bgcolor: purple[900] }}/>
+      {
+        (currentUser.photoURL)?(<Avatar src={`${currentUser.photoURL}`} sx={{ bgcolor: purple[900] }}/>):
+        (<Avatar src={`${currentUser.displayName[0]}`} sx={{ bgcolor: purple[900] }}/>)
+      }
         <div className='search-nav'>
             <AccessTimeIcon style={{color:'white',marginRight:'50px'}}/>
             <div className='search-input'>
