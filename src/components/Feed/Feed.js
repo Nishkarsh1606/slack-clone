@@ -36,16 +36,18 @@ function Feed() {
 
   const handleMessage=(e)=>{
     e.preventDefault()
-    setMessage('')
-    addDoc(collection(db,'Slack',`${channelName}`,'messages'),{
-      userName:currentUser.displayName,
-      displayName:getFirstName(),
-      userEmail:currentUser.email,
-      userProfile:currentUser.photoURL,
-      userMessage:message,
-      uid: currentUser.uid,
-      createAt:serverTimestamp()
-    })
+    if(message.length>0){
+      addDoc(collection(db,'Slack',`${channelName}`,'messages'),{
+        userName:currentUser.displayName,
+        displayName:getFirstName(),
+        userEmail:currentUser.email,
+        userProfile:currentUser.photoURL,
+        userMessage:message,
+        uid: currentUser.uid,
+        createAt:serverTimestamp()
+      })
+      setMessage('')
+    }
   }
   const scrollToBottom =()=>{
     messagesEndRef.current?.scrollIntoView({behvaior:'smooth'})
@@ -55,6 +57,7 @@ function Feed() {
     const firstName=fullName[0]
     return firstName
   }
+
   return (
     <div className='Feed'>
       <div className='posts'>
@@ -74,7 +77,12 @@ function Feed() {
       </div>
       <div className='post-message'>
         <form onSubmit={handleMessage} className={'post-message-form'}>
-          <input type="text" placeholder='Send Message' value={message} onChange={(e)=>setMessage(e.target.value)}/>
+          <input type="text" placeholder='Send Message' value={message} 
+          onChange={(e)=>{
+            if(e.target.value.length>=0){
+              setMessage(e.target.value)
+            }
+          }}/>
           <button type="submit" style={{display:"none"}}></button>
           <SendIcon className='send-icon' onClick={handleMessage}/>
         </form>
