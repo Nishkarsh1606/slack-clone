@@ -10,7 +10,7 @@ import { selectChannel } from '../../features/appSlice';
 function Feed() {
   //Get channel name
   const channelName=useSelector(selectChannel)
-  let collectionRef=collection(db,'Slack',`general`,'messages')
+  let collectionRef=collection(db,'Slack',`${channelName}`,'messages')
   // if(channelName){
   //   collectionRef=collection(db,'Slack',channelName,'messages')
   // }else{
@@ -33,7 +33,7 @@ function Feed() {
       )))
     })
   // eslint-disable-next-line
-  },[])
+  },[channelName])
 
   useEffect(()=>{
     scrollToBottom()
@@ -42,7 +42,7 @@ function Feed() {
   const handleMessage=(e)=>{
     e.preventDefault()
     setMessage('')
-    addDoc(collection(db,'Slack','general','messages'),{
+    addDoc(collection(db,'Slack',`${channelName}`,'messages'),{
       userName:currentUser.displayName,
       displayName:getFirstName(),
       userEmail:currentUser.email,
