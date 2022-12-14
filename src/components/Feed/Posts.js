@@ -6,16 +6,18 @@ import './Posts.css'
 // import { auth } from '../../firebase'
 import { Avatar } from '@mui/material'
 import { purple } from '@mui/material/colors'
+// eslint-disable-next-line
 import { DeleteForever } from '@mui/icons-material'
 
 function Posts({userName,userMessage,userProfile,messageID,userID}) {
     //Select collection name
 
     const currentUser=auth.currentUser
+    // eslint-disable-next-line
     const handleDelete=()=>{
         if(currentUser.uid===userID){
-            alert('Deleted!')
-            deleteDoc(doc(db,'general',messageID))
+            // alert('Deleted!')
+            deleteDoc(doc(db,'Slack',messageID))
         }
     }
     return (
@@ -27,9 +29,9 @@ function Posts({userName,userMessage,userProfile,messageID,userID}) {
                     <p className='user-info'>{userMessage}</p>
                 </div>
             </div>
-            <div onClick={handleDelete}>
+            {/* <div onClick={handleDelete}>
                 <DeleteForever className={`delete-icon`}/>
-            </div>
+            </div> */}
         </div>
     )
 }
