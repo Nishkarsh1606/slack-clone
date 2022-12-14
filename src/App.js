@@ -1,27 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-// import { Counter } from './features/counter/Counter';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import Feed from './components/Feed/Feed';
 import Login from './components/Login/Login';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from './firebase'
-import { login } from './features/userSlice';
 import './App.css';
 
 function App() {
   const [user] = useAuthState(auth)
-  const dispatch = useDispatch()
-  const currentUser = auth.currentUser
-  if (currentUser) {
-    dispatch(login({
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      uid: user.uid
-    }))
-  }
   return (
     user === null ? <Login /> : (
       <div className="App">
