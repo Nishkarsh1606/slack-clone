@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebase';
-import { collection, addDoc, setDoc, doc, onSnapshot, arrayRemove } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import './Sidebar.css'
 import Features from './Features';
 import CreateIcon from '@mui/icons-material/Create';
@@ -17,9 +17,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AddIcon from '@mui/icons-material/Add';
 import TagIcon from '@mui/icons-material/Tag';
 import { auth } from '../../firebase';
+import { useDispatch } from 'react-redux';
+import { userChannel } from '../../features/appSlice';
 
 function Sidebar() {
     const [channels, setChannels] = useState([])
+    const dispatch=useDispatch()
     const currentUser = auth.currentUser
     const getFirstName = () => {
         const fullName = currentUser.displayName.split(' ')
@@ -28,15 +31,26 @@ function Sidebar() {
     }
     const createChannel = () => {
         const promptValue = prompt('Enter Channel Name')
-        const newChannelName = promptValue.toLocaleLowerCase().replace(/ /g, '-')
-        addDoc(collection(db, 'Slack'), {
-            channelName: newChannelName
-        }).then(() => { alert('successfully added new channel!') })
-            .then(() => {
-                addDoc(collection(db, `Slack/${newChannelName}/messages`), {
-                    try: 'Test message'
+        if(promptValue.length<3 || promptValue===null){
+            alert('Please enter a valid value')
+        }else{
+            const newChannelName = promptValue.toLocaleLowerCase().replace(/ /g, '-')
+            addDoc(collection(db, `Slack/${newChannelName}/messages`), {
+                try: 'Test message'
+            })
+            .then(()=>{
+                addDoc(collection(db,'Slack'),{
+                    channelName: newChannelName
                 })
             })
+            .then(()=>{
+                alert('Channel created successfully!')
+            })
+        }
+    }
+    const getChannelName=(channelName)=>{
+        //dispatch channel to feed component
+        dispatch(userChannel(channelName))
     }
     useEffect(() => {
         onSnapshot((collection(db, 'Slack')), (snapshot) => {
@@ -47,7 +61,8 @@ function Sidebar() {
                 }
             )))
         })
-        console.log(channels);
+        console.log(channels)
+        //eslint-disable-next-line
     }, [])
     return (
         <div className='Sidebar'>
@@ -84,7 +99,13 @@ function Sidebar() {
                     <Features Icon={TagIcon} featureName={'Slack'} />
                     {
                         channels.map(({ id, data: { channelName } }) => (
-                            <Features Icon={TagIcon} featureName={channelName} />
+                            <Features 
+                            key={id}
+                            channelID={id}
+                            Icon={TagIcon} 
+                            featureName={channelName}
+                            onClickGetChannelName={getChannelName}
+                            />
                         ))
                     }
                 </div>

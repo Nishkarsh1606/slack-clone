@@ -4,15 +4,21 @@ import './Feed.css'
 import SendIcon from '@mui/icons-material/Send';
 import { auth, db } from '../../firebase';
 import { addDoc,onSnapshot,serverTimestamp,collection,orderBy,query } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
+import { selectChannel } from '../../features/appSlice';
 
 function Feed() {
-  //Select channel & collection name
-  
-  //Setup firebase functions
-  const collectionRef=collection(db,'Slack','general','messages')
+  //Get channel name
+  const channelName=useSelector(selectChannel)
+  let collectionRef=collection(db,'Slack',`general`,'messages')
+  // if(channelName){
+  //   collectionRef=collection(db,'Slack',channelName,'messages')
+  // }else{
+  //   collectionRef=collection(db,'Slack','general','messages')
+  // }
   const collectionOrderedByTime=query(collectionRef,orderBy('createAt','desc'))
   const currentUser=auth.currentUser
-  
+
   const [message,setMessage]=useState('')
   const [posts,setPosts]=useState([])
   const messagesEndRef=useRef(null)
@@ -36,7 +42,7 @@ function Feed() {
   const handleMessage=(e)=>{
     e.preventDefault()
     setMessage('')
-    addDoc(collection(db,'Slack',`general`,'messages'),{
+    addDoc(collection(db,'Slack','general','messages'),{
       userName:currentUser.displayName,
       displayName:getFirstName(),
       userEmail:currentUser.email,
