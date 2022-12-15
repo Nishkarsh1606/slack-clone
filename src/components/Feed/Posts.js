@@ -26,7 +26,7 @@ function Posts({userName,userMessage,userProfile,messageID,userID}) {
                 <Avatar src={`${userProfile}`} sx={{ bgcolor: purple[900] }} className='user-img' alt={userName[0]}/>
                 <div className='user'>
                     <p className='user-info'>{userName}</p>
-                    <p className='user-info'>{userMessage}</p>
+                    <p className='user-info user-message'>{userMessage}</p>
                 </div>
             </div>
             {/* <div onClick={handleDelete}>
