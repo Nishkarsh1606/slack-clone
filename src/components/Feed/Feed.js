@@ -3,15 +3,16 @@ import Posts from './Posts'
 import './Feed.css'
 import SendIcon from '@mui/icons-material/Send';
 import { auth, db } from '../../firebase';
-import { addDoc,onSnapshot,serverTimestamp,collection,orderBy,query } from 'firebase/firestore';
+import { addDoc,onSnapshot,serverTimestamp,collection,orderBy,query} from 'firebase/firestore';
 import { useSelector } from 'react-redux';
 import { selectChannel } from '../../features/appSlice';
 
 function Feed() {
   //Get channel name
   const channelName=useSelector(selectChannel)
-  let collectionRef=collection(db,'Slack',`${channelName}`,'messages')
-  const collectionOrderedByTime=query(collectionRef,orderBy('createAt','desc'))
+
+  //call firebase collection
+  const collectionRef=collection(db,'Slack',`${channelName}`,'messages')
   const currentUser=auth.currentUser
 
   const [message,setMessage]=useState('')
@@ -19,7 +20,7 @@ function Feed() {
   const messagesEndRef=useRef(null)
   
   useEffect(()=>{
-    onSnapshot(collectionOrderedByTime,(snapshot)=>{
+    onSnapshot(query(collectionRef,orderBy('createAt','desc')),(snapshot)=>{
       setPosts(snapshot.docs.map((doc)=>(
         {
           data:doc.data(),
@@ -28,21 +29,22 @@ function Feed() {
       )))
     })
   // eslint-disable-next-line
-  },[channelName])
+  },[posts])
 
   useEffect(()=>{
     scrollToBottom()
-  },[posts])
+  },[message])
 
   const handleMessage=(e)=>{
     e.preventDefault()
-    if(message.length>0){
-      addDoc(collection(db,'Slack',`${channelName}`,'messages'),{
+    if(message.length>0 && channelName!==undefined){
+      addDoc(collection(db,'Slack',channelName,'messages'),{
         userName:currentUser.displayName,
         displayName:getFirstName(),
         userEmail:currentUser.email,
         userProfile:currentUser.photoURL,
         userMessage:message,
+        channelPosted: channelName,
         uid: currentUser.uid,
         createAt:serverTimestamp()
       })
@@ -66,7 +68,7 @@ function Feed() {
           posts.map(({id,data:{displayName,userProfile,userMessage,uid}})=>{
             return <Posts
             key={id}
-            messageID={id}
+            messageID={uid}
             userID={uid}
             userName={displayName}
             userMessage={userMessage}
@@ -77,7 +79,7 @@ function Feed() {
       </div>
       <div className='post-message'>
         <form onSubmit={handleMessage} className={'post-message-form'}>
-          <input type="text" placeholder='Send Message' value={message} 
+          <input type="text" placeholder={` #${channelName}`} value={message} 
           onChange={(e)=>{
             if(e.target.value.length>=0){
               setMessage(e.target.value)
