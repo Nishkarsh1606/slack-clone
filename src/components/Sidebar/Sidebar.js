@@ -39,7 +39,7 @@ function Sidebar() {
                 try: 'Test message'
             })
             .then(()=>{
-                addDoc(collection(db,'Slack'),{
+                addDoc(collection(db,'Channels'),{
                     channelName: newChannelName
                 })
             })
@@ -53,7 +53,7 @@ function Sidebar() {
         dispatch(userChannel(channelName))
     }
     useEffect(() => {
-        onSnapshot((collection(db, 'Slack')), (snapshot) => {
+        onSnapshot((collection(db, 'Channels')), (snapshot) => {
             setChannels(snapshot.docs.map((doc) => (
                 {
                     data: doc.data(),
